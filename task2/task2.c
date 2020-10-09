@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/* defining a type of function to be used in the array of addresses of function */
+//https://stackoverflow.com/questions/3674200/what-does-a-typedef-with-parenthesis-like-typedef-int-fvoid-mean-is-it-a
+typedef int (*Operation)(int a, int b);
+
 /* IMPLEMENT ME: Declare your functions here */
 int add(int a, int b);
 int subtract(int a, int b);
@@ -14,6 +18,13 @@ int main(void)
   int b = 3;
   int operation;
   int answer = 0;
+  Operation operators[5];
+
+  operators[0] = &add;
+  operators[1] = &subtract;
+  operators[2] = &multiply;
+  operators[3] = &divide;
+  operators[4] = &exiting;
 
   /* IMPLEMENT ME: Insert your algorithm here */
   printf("Operand 'a' : %d | ", a);
@@ -21,7 +32,7 @@ int main(void)
   printf("Specify the operation to perform (0 : add | 1 : subtract | 2 : Multiply | 3 : divide | 4 : exit): ");
   scanf(" %d", &operation);
 
-  answer = (operation == 0) ? add(a, b) : (operation == 1 ? subtract(a, b) : (operation == 2 ? multiply(a, b) : (operation == 3 ? divide(a, b) : (operation == 4 ? exiting(a, b) : 0))));
+  answer = operators[operation](a, b);
 
   printf("x = %d\n", answer);
 
